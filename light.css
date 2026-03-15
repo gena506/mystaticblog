@@ -1,0 +1,157 @@
+/* light.css – только переопределения цветов для светлой темы */
+body.theme-light {
+    background-color: #e7ebf0;
+}
+
+body.theme-light .tg-container {
+    background-color: #ffffff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+body.theme-light .tg-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e9ecef;
+    background-color: rgba(255,255,255,0.96);
+}
+
+body.theme-light .channel-name {
+    color: #222;
+}
+
+body.theme-light .header-icons {
+    color: #5e6f8d;
+}
+
+body.theme-light .message {
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+    border: 1px solid rgba(0,0,0,0.04);
+    color: #000000; 
+}
+
+body.theme-light .message-text {
+    color: #000000;
+}
+
+body.theme-light .tg-button {
+    background-color: #f1f4f9;
+    color: #2e6bb5;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.03);
+}
+
+body.theme-light .tg-button:hover {
+    background-color: #e3e9f2;
+}
+
+body.theme-light .pagination .tg-button {
+    background-color: #f1f4f9;
+}
+
+body.theme-light .pagination .tg-button:disabled {
+    opacity: 0.5;
+}
+
+body.theme-light .system-message {
+    color: #8e8e93;
+}
+
+body.theme-light .message.sticker {
+    /* стикеры не требуют фона, поэтому ничего не меняем */
+}
+
+body.theme-light .message.photo {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+}
+
+/* Контекстное меню для светлой темы */
+body.theme-light .context-menu {
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+body.theme-light .context-menu li {
+    color: #222;
+}
+
+body.theme-light .context-menu li:hover {
+    background-color: #f1f4f9;
+}
+/* Кнопки контекстного меню в светлой теме */
+body.theme-light .context-menu-item {
+    color: #222;                    /* тёмный текст */
+    background-color: transparent;   /* прозрачный фон (как в тёмной теме) */
+}
+
+body.theme-light .context-menu-item:hover {
+    background-color: #f1f4f9;       /* светло-серый фон при наведении */
+}
+
+body.theme-light .message.sticker {
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+/* Аудиосообщение в светлой теме */
+body.theme-light .message.audio {
+    background-color: #ffffff;
+}
+
+body.theme-light .audio-play-pause {
+    background-color: #f1f4f9;
+    color: #2e6bb5;
+}
+
+body.theme-light .audio-play-pause:hover {
+    background-color: #e3e9f2;
+}
+
+body.theme-light .audio-progress-container {
+    background-color: #e9ecef;
+}
+
+body.theme-light .audio-progress-bar {
+    background-color: #2e6bb5;
+}
+
+body.theme-light .audio-time,
+body.theme-light .audio-duration {
+    color: #666;
+}
+
+body.theme-light .audio-title {
+    color: #333;
+}
+
+/* Аудиосообщение в светлой теме */
+body.theme-light .message.audio {
+    background-color: #ffffff;
+}
+
+body.theme-light .audio-title {
+    color: #666;
+}
+
+body.theme-light .audio-time-duration {
+    color: #666;
+    /* background: rgba(255,255,255,0.7); */
+}
+
+body.theme-light .audio-play-pause {
+    background-color: #f1f4f9;
+    color: #2e6bb5;
+}
+
+body.theme-light .audio-play-pause:hover {
+    background-color: #e3e9f2;
+}
+
+body.theme-light .audio-progress-container {
+    background-color: #e9ecef;
+}
+
+body.theme-light .audio-progress-bar {
+    background-color: #2e6bb5;
+}
