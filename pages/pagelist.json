@@ -8,7 +8,13 @@
   {
     "file": "spotify.html",
     "title": "СПОТИФАЙ",
-    "date": "2025-03-15",
+    "date": "2025-03-16",
     "description": "Слушать музыку без впн"
+  },
+  {
+    "file": "beriidelai.html",
+    "title": "ДЕЛАЙ. СЕЙЧАС.",
+    "date": "2025-03-16",
+    "description": "Время заканчивается..."
   }
 ]
