@@ -1,0 +1,276 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #181818;        /* тёмный фон страницы */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.tg-container {
+    max-width: 600px;
+    width: 100%;
+    background-color: #1f1f1f;        /* фон контейнера */
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Верхняя панель */
+.tg-header {
+    border-bottom: 1px solid #2f2f2f;
+    padding: 12px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    background-color: rgba(44, 44, 44, 0.96);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+}
+
+.channel-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;                   /* белый текст */
+}
+
+.header-icons {
+    font-size: 24px;
+    line-height: 1;
+    color: #aaaaaa;                   /* светлые иконки */
+    cursor: default;
+}
+
+/* Лента сообщений */
+.chat {
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+}
+
+/* Группа: пузырёк + кнопки */
+.message-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 90%;
+    position: relative;
+}
+
+/* Сам пузырёк (текст) */
+.message {
+    background-color: #3f3f3f;        /* фон пузырька */
+    border-radius: 18px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 1px 4px rgba(0,0,0,0.2);
+    padding: 8px 12px;
+    border: 1px solid #3a3a3a;        /* тёмная граница */
+    word-wrap: break-word;
+    width: fit-content;
+    max-width: 100%;
+    color: #ffffff;                   /* текст сообщения */
+}
+
+/* (Класс .message-text можно оставить для совместимости, но он уже не используется) */
+.message-text {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #ffffff;
+    white-space: pre-wrap;
+}
+
+/* Блок кнопок под сообщением */
+.message-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    max-width: 100%;
+}
+
+/* Сами кнопки */
+.tg-button {
+    background-color: #3a3a3a;        /* тёмные кнопки */
+    border: none;
+    border-radius: 24px;
+    padding: 8px 16px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #8ab4f8;                   /* голубоватый текст (как в Telegram) */
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    border: 1px solid #4a4a4a;
+}
+
+.tg-button:hover {
+    background-color: #4a4a4a;        /* чуть светлее при наведении */
+    text-decoration: none;
+}
+
+a.tg-button {
+    text-decoration: none;
+}
+
+/* Пагинация теперь встраивается как обычное сообщение */
+.pagination {
+    margin: 20px 0 10px;
+}
+
+.pagination .tg-button {
+    background-color: #3a3a3a;
+    min-width: 40px;
+    padding: 8px 12px;
+    color: #8ab4f8;
+}
+
+.pagination .tg-button:disabled {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+}
+
+/* Кнопка "На главную" */
+.back-home {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 480px) {
+    .message-group {
+        max-width: 100%;
+    }
+    
+    .message {
+        max-width: 100%;
+    }
+    
+    .tg-header {
+        padding: 10px 12px;
+    }
+    
+    .channel-name {
+        font-size: 16px;
+    }
+}
+
+.tg-button:active {
+    transform: scale(0.97);
+}
+
+.system-message {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #aaaaaa;                   /* серый текст для системных сообщений */
+    margin: 12px 0 6px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+}
+
+/* Стикеры (крупные эмодзи без фона) */
+.message.sticker {
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 4px 8px;
+    font-size: 96px;
+    line-height: 1.2;
+    width: fit-content;
+    max-width: 100%;
+    transition: transform 0.1s ease;
+}
+
+.message.sticker-large {
+    font-size: 128px;
+    padding: 8px;
+}
+
+/* Сообщение с фото */
+.message.photo {
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 1px 4px rgba(0,0,0,0.2);
+    overflow: hidden;
+    width: fit-content;
+    max-width: 100%;
+}
+
+.message.photo img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    border-radius: 18px;
+    object-fit: cover;
+    max-height: 400px;
+}
+
+.message.photo + .message-buttons {
+    margin-top: 6px;
+}
+
+.context-menu {
+    position: absolute;
+    top: 60px; /* отступ от шапки */
+    right: 16px;
+    background-color: var(--menu-bg, #2b2b2b);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    padding: 8px 0;
+    min-width: 180px;
+    z-index: 1000;
+    display: none; /* скрыто по умолчанию */
+    border: 1px solid var(--menu-border, #3a3a3a);
+}
+
+.context-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.context-menu li {
+    padding: 10px 16px;
+    font-size: 15px;
+    color: var(--menu-text, #ffffff);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.context-menu li:hover {
+    background-color: var(--menu-hover, #3a3a3a);
+}
+
+.context-menu {
+    background-color: #2b2b2b;
+    border: 1px solid #3a3a3a;
+}
+.context-menu li {
+    color: #ffffff;
+}
+.context-menu li:hover {
+    background-color: #3a3a3a;
+}

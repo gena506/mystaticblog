@@ -11,6 +11,7 @@ fetch('pages/pagelist.json?v=' + Date.now())
         return response.json();
     })
     .then(data => {
+        // Сортировка от старых к новым (по возрастанию даты)
         articlesData = data.sort((a, b) => new Date(a.date) - new Date(b.date));
         renderPage(currentPage);
         setupPagination();
@@ -19,22 +20,30 @@ fetch('pages/pagelist.json?v=' + Date.now())
         container.innerHTML = `<div class="message-group"><div class="message" style="color: red;">Ошибка: ${error.message}</div></div>`;
     });
 
-function renderPage(page) {
-    const start = (page - 1) * POSTS_PER_PAGE;
-    const end = start + POSTS_PER_PAGE;
+// Возвращает дату последней статьи на предыдущей странице (для page > 1)
+function getPrevPageLastDate(page) {
+    if (page <= 1) return null;
+    const total = articlesData.length;
+    // Индекс последнего элемента на странице page-1
+    const prevPageLastIndex = total - (page - 2) * POSTS_PER_PAGE - 1;
+    return articlesData[prevPageLastIndex]?.date || null;
+}
+
+function renderPage(page, prevDateFromPrevPage) {
+    const total = articlesData.length;
+    const start = Math.max(0, total - page * POSTS_PER_PAGE);
+    const end = total - (page - 1) * POSTS_PER_PAGE;
     const pageArticles = articlesData.slice(start, end);
 
     if (pageArticles.length === 0 && page > 1) {
-        currentPage = 1;
-        renderPage(1);
+        // Если страница пуста (например, последняя страница с неполным блоком), переходим на последнюю существующую
+        currentPage = Math.ceil(total / POSTS_PER_PAGE);
+        renderPage(currentPage);
         return;
     }
 
-    let prevDate = null;
-    if (page > 1 && articlesData.length >= start) {
-        const prevPost = articlesData[start - 1];
-        if (prevPost) prevDate = prevPost.date;
-    }
+    // Начальная дата для сравнения (если передана с предыдущей страницы)
+    let prevDate = prevDateFromPrevPage !== undefined ? prevDateFromPrevPage : null;
 
     let html = '';
     for (let article of pageArticles) {
@@ -42,7 +51,6 @@ function renderPage(page) {
         if (currentDate !== prevDate) {
             html += `<div class="system-message">${formatDateRu(currentDate)}</div>`;
         }
-
 
         let messageContent = article.title;
         if (article.description) {
@@ -70,17 +78,14 @@ function setupPagination() {
     const totalPages = Math.ceil(articlesData.length / POSTS_PER_PAGE);
     const backHome = document.getElementById('back-home');
 
-    // Если статей нет или всего одна страница — пагинация не нужна
     if (totalPages <= 1) {
-        paginationDiv.innerHTML = ''; // очищаем пагинацию
-        if (backHome) backHome.style.display = 'none'; // скрываем кнопку
+        paginationDiv.innerHTML = '';
+        if (backHome) backHome.style.display = 'none';
         return;
     }
 
-    // Иначе показываем кнопку (если она была скрыта)
-    if (backHome) backHome.style.display = ''; // возвращаем стандартное отображение (блок)
+    if (backHome) backHome.style.display = '';
 
-    // Генерируем кнопки пагинации
     let buttonsHtml = '';
     buttonsHtml += `<button class="tg-button" id="prev-page" ${currentPage === 1 ? 'disabled' : ''}>←</button>`;
     for (let i = 1; i <= totalPages; i++) {
@@ -99,29 +104,34 @@ function setupPagination() {
 
     paginationDiv.innerHTML = paginationGroupHTML;
 
-    // Обработчики событий
+    // Обработчики с учётом правильной даты для разделителя
     document.getElementById('prev-page')?.addEventListener('click', () => {
         if (currentPage > 1) {
-            currentPage--;
-            renderPage(currentPage);
+            const newPage = currentPage - 1;
+            const prevDate = getPrevPageLastDate(newPage);
+            currentPage = newPage;
+            renderPage(currentPage, prevDate);
             setupPagination();
         }
     });
 
     document.getElementById('next-page')?.addEventListener('click', () => {
         if (currentPage < totalPages) {
-            currentPage++;
-            renderPage(currentPage);
+            const newPage = currentPage + 1;
+            const prevDate = getPrevPageLastDate(newPage);
+            currentPage = newPage;
+            renderPage(currentPage, prevDate);
             setupPagination();
         }
     });
 
     document.querySelectorAll('.page-num').forEach(btn => {
         btn.addEventListener('click', (e) => {
-            const page = parseInt(e.target.dataset.page);
-            if (page !== currentPage) {
-                currentPage = page;
-                renderPage(currentPage);
+            const newPage = parseInt(e.target.dataset.page);
+            if (newPage !== currentPage) {
+                const prevDate = getPrevPageLastDate(newPage);
+                currentPage = newPage;
+                renderPage(currentPage, prevDate);
                 setupPagination();
             }
         });

@@ -6,21 +6,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const themeToggle = document.getElementById('theme-toggle');
 
     // ===== Переключение темы =====
-    // При загрузке применяем сохранённую тему или ставим светлую по умолчанию
-    let savedTheme = localStorage.getItem('theme');
-    
-    if (!savedTheme) {
-        // Первый визит: ставим светлую тему и сохраняем
-        savedTheme = 'light';
-        localStorage.setItem('theme', 'light');
-    }
+    // При загрузке применяем сохранённую тему, если есть
+    const savedTheme = localStorage.getItem('theme');
     
     if (savedTheme === 'light') {
         document.body.classList.add('theme-light');
-    } else {
-        // Если тема тёмная — убираем класс (на случай, если он был)
-        document.body.classList.remove('theme-light');
     }
+    // Если savedTheme === 'dark' или null, оставляем тёмную тему (по умолчанию)
 
     if (themeToggle) {
         themeToggle.addEventListener('click', function(e) {
