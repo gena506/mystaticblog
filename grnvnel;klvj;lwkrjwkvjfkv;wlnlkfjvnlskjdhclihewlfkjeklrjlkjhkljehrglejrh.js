@@ -1,5 +1,12 @@
 
   (async function(){
+
+if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
+    location.replace(`https://${location.host}${location.pathname}${location.search}${location.hash}`);
+    return;
+  }
+
+    
   const correctHash = "44c625f397467d30c9906158a71baed6a79f7845117f6f70135e20bdd8dfed75";
 
   async function hash(s){
